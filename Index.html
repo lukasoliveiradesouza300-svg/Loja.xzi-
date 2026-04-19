@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 XIZITHX | Streetwear Premium</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: #111111;
+            --accent-color: #ffffff;
+            --text-gray: #888888;
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Syncopate', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--accent-color);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .cart-icon {
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        #cart-count {
+            background: #fff;
+            color: #000;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        /* --- Shop Section --- */
+        .container {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 5%;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            margin-bottom: 50px;
+            font-size: 2rem;
+            border-left: 4px solid #fff;
+            padding-left: 15px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 2px;
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .product-info .price {
+            color: var(--text-gray);
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .btn-add {
+            width: 100%;
+            background: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 12px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-add:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* --- Shopping Cart Sidebar --- */
+        .cart-sidebar {
+            position: fixed;
+            right: -100%;
+            top: 0;
+            width: 350px;
+            height: 100%;
+            background: #0a0a0a;
+            z-index: 2000;
+            padding: 40px 20px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            transition: var(--transition);
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active { right: 0; }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-family: var(--font-display);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #222;
+        }
+
+        /* --- Checkout Form --- */
+        .checkout-form {
+            margin-top: 40px;
+            background: #111;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .checkout-form h4 { margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+
+        input {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            width: 100%;
+            border: none;
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        /* --- Contact/Footer --- */
+        footer {
+            background: #000;
+            padding: 60px 5%;
+            border-top: 1px solid #111;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-gray);
+        }
+
+        @media (max-width: 768px) {
+            .cart-sidebar { width: 100%; }
+            .hero h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">01 XIZITHX</div>
+        <div class="cart-icon" onclick="toggleCart()">
+            <i data-lucide="shopping-bag"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 data-aos="fade-up">01 XIZITHX</h1>
+        <p data-aos="fade-up" data-aos-delay="200">The New Era of Streetwear</p>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title" data-aos="fade-right">NEW DROP</h2>
+        
+        <div class="products-grid">
+            <div class="product-card" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=600" alt="Camiseta Street" class="product-image">
+                <div class="product-info">
+                    <h3>Camiseta Oversized Black</h3>
+                    <span class="price">R$ 149,90</span>
+                    <button class="btn-add" onclick="addToCart('Camiseta Oversized Black', 149.90)">Adicionar ao carrinho</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=600" alt="Jaqueta" class="product-image">
+                <div class="product-info">
+                    <h3>Jaqueta Bomber Tech</h3>
+                    <span class="price">R$ 389,00</span>
+                    <button class="btn-add" onclick="addToCart('Jaqueta Bomber Tech', 389.00)">Adicionar ao carrinho</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&q=80&w=600" alt="Calça" class="product-image">
+                <div class="product-info">
+                    <h3>Calça Cargo Cargo X</h3>
+                    <span class="price">R$ 259,90</span>
+                    <button class="btn-add" onclick="addToCart('Calça Cargo Cargo X', 259.90)">Adicionar ao carrinho</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://images.unsplash.com/photo-1552831388-6a0b3575b32a?auto=format&fit=crop&q=80&w=600" alt="Conjunto" class="product-image">
+                <div class="product-info">
+                    <h3>Conjunto Full Street</h3>
+                    <span class="price">R$ 540,00</span>
+                    <button class="btn-add" onclick="addToCart('Conjunto Full Street', 540.00)">Adicionar ao carrinho</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>CARRINHO</h3>
+            <i data-lucide="x" style="cursor:pointer" onclick="toggleCart()"></i>
+        </div>
+        
+        <div id="cart-items">
+            </div>
+
+        <div style="margin-top: 20px; font-weight: bold; font-size: 1.2rem;">
+            Total: R$ <span id="cart-total">0.00</span>
+        </div>
+
+        <div class="checkout-form">
+            <h4>Finalizar Pedido</h4>
+            <input type="text" id="cust-name" placeholder="Seu Nome completo">
+            <input type="text" id="cust-address" placeholder="Endereço de entrega">
+            <input type="tel" id="cust-phone" placeholder="Telefone (WhatsApp)">
+            
+            <button class="btn-whatsapp" onclick="checkoutWhatsApp()">
+                <i data-lucide="send"></i> Enviar via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="logo" style="margin-bottom: 20px;">01 XIZITHX</div>
+        <p>© 2024 - Streetwear Original.</p>
+        <div class="contact-info">
+            <div class="contact-item"><i data-lucide="map-pin"></i> Goiânia - GO</div>
+            <div class="contact-item"><i data-lucide="phone"></i> +55 64 9345-2947</div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicializar ícones e animações
+        lucide.createIcons();
+        AOS.init({ duration: 1000, once: true });
+
+        let cart = [];
+        const cartSidebar = document.getElementById('cart-sidebar');
+
+        function toggleCart() {
+            cartSidebar.classList.toggle('active');
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+            if(!cartSidebar.classList.contains('active')) toggleCart();
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+            
+            cartList.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartList.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span>R$ ${item.price.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            cartCount.innerText = cart.length;
+            cartTotal.innerText = total.toFixed(2);
+        }
+
+        function checkoutWhatsApp() {
+            const name = document.getElementById('cust-name').value;
+            const address = document.getElementById('cust-address').value;
+            const phone = document.getElementById('cust-phone').value;
+
+            if (!name || !address || cart.length === 0) {
+                alert("Por favor, preencha seus dados e adicione itens ao carrinho.");
+                return;
+            }
+
+            let message = `Olá, tenho interesse nos produtos da loja 01 XIZITHX\n\n`;
+            message += `*Pedido:* \n`;
+            cart.forEach(item => {
+                message += `- ${item.name}: R$ ${item.price.toFixed(2)}\n`;
+            });
+            message += `\n*Total:* R$ ${document.getElementById('cart-total').innerText}\n\n`;
+            message += `*Cliente:* ${name}\n`;
+            message += `*Endereço:* ${address}\n`;
+            message += `*Contato:* ${phone}`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/556493452947?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
