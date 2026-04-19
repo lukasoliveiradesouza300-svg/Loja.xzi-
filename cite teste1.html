@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurante Prime</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #0b0f1a;
+  color: white;
+}
+
+/* NAVBAR */
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: rgba(0,0,0,0.6);
+  position: fixed;
+  width: 100%;
+}
+
+nav h2 {
+  color: #22c55e;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1555992336-03a23c7b20ee') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero div {
+  background: rgba(0,0,0,0.6);
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.hero h1 {
+  font-size: 40px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background: #22c55e;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+/* SECTION */
+.section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* MENU */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.menu img {
+  width: 100%;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.menu img:hover {
+  transform: scale(1.05);
+}
+
+/* INFO */
+.info {
+  background: #111827;
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 500px;
+  margin: auto;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: black;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h2>Prime</h2>
+  <div>
+    <a href="#">Início</a>
+    <a href="#menu">Cardápio</a>
+    <a href="#info">Contato</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <h1>Experiência gastronômica única</h1>
+    <p>Alta cozinha moderna com sabor inesquecível</p>
+    <a class="btn" href="https://wa.me/5511999999999">Reservar pelo WhatsApp</a>
+  </div>
+</section>
+
+<section id="menu" class="section">
+  <h2>Nosso Cardápio</h2>
+  <div class="menu">
+    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
+    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
+    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe">
+    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2">
+  </div>
+</section>
+
+<section id="info" class="section">
+  <div class="info">
+    <h2>Contato</h2>
+    <p>📍 São Paulo - SP</p>
+    <p>📞 (11) 99999-9999</p>
+    <p>🕒 18:00 - 23:00</p>
+  </div>
+</section>
+
+<footer>
+  © 2026 Restaurante Prime
+</footer>
+
+</body>
+</html>
